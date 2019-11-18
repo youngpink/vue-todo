@@ -31,9 +31,6 @@
   export default {
     name: 'TodoList',
     components: { TodoItem },
-    props: {
-      msg: String
-    },
     data: function () {
       return {
         tasks: [
