@@ -1,6 +1,11 @@
 <template>
   <div>
-    <TodoItem :key="task.id" :task="task" v-for="task in tasks"></TodoItem>
+    <TodoItem
+            :key="task.id"
+            :task="task"
+            v-for="task in tasks"
+            @complete-task="complete($event)"
+    ></TodoItem>
   </div>
 </template>
 
@@ -23,7 +28,13 @@
           { id: '005', title: '打电话', content: '给狗娃纸打电话', status: 'TODO' },
         ],
       };
-    }
+    },
+    methods: {
+      complete: function (taskId) {
+        const task = this.tasks.find(task => task.id === taskId);
+        task.status = 'DONE';
+      }
+    },
   }
 </script>
 
