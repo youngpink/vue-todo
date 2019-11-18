@@ -18,6 +18,7 @@
               :key="task.id"
               :task="task"
               v-for="task in doneTasks"
+              @remove-task="remove($event)"
       ></TodoItem>
     </div>
   </div>
@@ -63,7 +64,10 @@
         this.tasks.push({ id: uuid(), title: this.newTitle, content: this.newContent, status: 'TODO' });
         this.newTitle = '';
         this.newContent = '';
-      }
+      },
+      remove: function (taskId) {
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+      },
     },
   }
 </script>

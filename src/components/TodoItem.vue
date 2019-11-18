@@ -3,6 +3,7 @@
     <span>{{ task.title }}</span><span>{{ task.status }}</span>
     <p>{{ task.content }}</p>
     <button v-if="task.status === 'TODO'" @click="complete()">完成</button>
+    <button v-if="task.status === 'DONE'" @click="remove()">删除</button>
   </div>
 </template>
 
@@ -15,6 +16,9 @@
     methods: {
       complete: function () {
         this.$emit('complete-task', this.task.id);
+      },
+      remove: function () {
+        this.$emit('remove-task', this.task.id);
       },
     }
   }
