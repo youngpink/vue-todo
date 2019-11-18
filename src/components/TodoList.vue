@@ -1,6 +1,11 @@
 <template>
   <div class="list">
-    <div class="left">
+    <div class="">
+      <div>标题<input v-model="newTitle"/></div>
+      <div>内容<textarea v-model="newContent"/></div>
+      <button @click="add()">确定添加</button>
+    </div>
+    <div class="todo">
       <TodoItem
               :key="task.id"
               :task="task"
@@ -8,7 +13,7 @@
               @complete-task="complete($event)"
       ></TodoItem>
     </div>
-    <div class="right">
+    <div class="done">
       <TodoItem
               :key="task.id"
               :task="task"
@@ -20,6 +25,7 @@
 
 <script>
   import TodoItem from "./TodoItem";
+  import { uuid } from "../utils/uuid";
 
   export default {
     name: 'TodoList',
@@ -36,6 +42,8 @@
           { id: '004', title: '锻炼', content: '步行1万步', status: 'TODO' },
           { id: '005', title: '打电话', content: '给狗娃纸打电话', status: 'TODO' },
         ],
+        newTitle: '',
+        newContent: '',
       };
     },
     computed: {
@@ -50,6 +58,11 @@
       complete: function (taskId) {
         const task = this.tasks.find(task => task.id === taskId);
         task.status = 'DONE';
+      },
+      add: function () {
+        this.tasks.push({ id: uuid(), title: this.newTitle, content: this.newContent, status: 'TODO' });
+        this.newTitle = '';
+        this.newContent = '';
       }
     },
   }
@@ -61,11 +74,11 @@
     justify-content: center;
   }
   
-  .left {
+  .todo {
     width: 250px;
   }
   
-  .right {
+  .done {
     width: 250px;
   }
 </style>
