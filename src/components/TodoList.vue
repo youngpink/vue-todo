@@ -1,11 +1,20 @@
 <template>
-  <div>
-    <TodoItem
-            :key="task.id"
-            :task="task"
-            v-for="task in tasks"
-            @complete-task="complete($event)"
-    ></TodoItem>
+  <div class="list">
+    <div class="left">
+      <TodoItem
+              :key="task.id"
+              :task="task"
+              v-for="task in todoTasks"
+              @complete-task="complete($event)"
+      ></TodoItem>
+    </div>
+    <div class="right">
+      <TodoItem
+              :key="task.id"
+              :task="task"
+              v-for="task in doneTasks"
+      ></TodoItem>
+    </div>
   </div>
 </template>
 
@@ -29,6 +38,14 @@
         ],
       };
     },
+    computed: {
+      todoTasks: function () {
+        return this.tasks.filter(task => task.status === 'TODO');
+      },
+      doneTasks: function () {
+        return this.tasks.filter(task => task.status === 'DONE');
+      }
+    },
     methods: {
       complete: function (taskId) {
         const task = this.tasks.find(task => task.id === taskId);
@@ -39,4 +56,16 @@
 </script>
 
 <style scoped>
+  .list {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .left {
+    width: 250px;
+  }
+  
+  .right {
+    width: 250px;
+  }
 </style>

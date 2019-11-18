@@ -2,7 +2,7 @@
   <div class="todo-container">
     <span>{{ task.title }}</span><span>{{ task.status }}</span>
     <p>{{ task.content }}</p>
-    <button @click="complete()">完成</button>
+    <button v-if="task.status === 'TODO'" @click="complete()">完成</button>
   </div>
 </template>
 
