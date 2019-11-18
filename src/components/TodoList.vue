@@ -1,23 +1,16 @@
 <template>
   <div class="list">
-    <div class="">
+    <div v-if="shouldDisplayTodo()">
       <div>标题<input v-model="newTitle"/></div>
       <div>内容<textarea v-model="newContent"/></div>
       <button @click="add()">确定添加</button>
     </div>
-    <div class="todo">
+    <div class="tasks">
       <TodoItem
               :key="task.id"
               :task="task"
-              v-for="task in todoTasks"
+              v-for="task in displayTasks"
               @complete-task="complete($event)"
-      ></TodoItem>
-    </div>
-    <div class="done">
-      <TodoItem
-              :key="task.id"
-              :task="task"
-              v-for="task in doneTasks"
               @remove-task="remove($event)"
       ></TodoItem>
     </div>
@@ -45,6 +38,15 @@
       };
     },
     computed: {
+      displayTasks: function () {
+        if (this.shouldDisplayTodo()) {
+          return this.todoTasks;
+        }
+        if (this.shouldDisplayDone()) {
+          return this.doneTasks;
+        }
+        return [];
+      },
       todoTasks: function () {
         return this.tasks.filter(task => task.status === 'TODO');
       },
@@ -65,6 +67,12 @@
       remove: function (taskId) {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
       },
+      shouldDisplayTodo: function () {
+        return this.$route.params.taskStatus === 'todo';
+      },
+      shouldDisplayDone: function () {
+        return this.$route.params.taskStatus === 'done';
+      },
     },
   }
 </script>
@@ -75,11 +83,7 @@
     justify-content: center;
   }
   
-  .todo {
-    width: 250px;
-  }
-  
-  .done {
+  .tasks {
     width: 250px;
   }
 </style>

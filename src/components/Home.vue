@@ -1,13 +1,15 @@
 <template>
-  <TodoList></TodoList>
+  <div>
+    <router-link to="todo">待完成</router-link>
+    <router-link to="done">已完成</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-  import TodoList from "./TodoList";
   
   export default {
     name: 'Home',
-    components: { TodoList },
   }
 </script>
 
