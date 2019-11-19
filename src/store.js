@@ -42,6 +42,7 @@ const actions = {
 };
 
 const moduleTask = {
+  namespaced: true,
   state,
   getters,
   mutations,
