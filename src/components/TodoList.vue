@@ -19,8 +19,7 @@
 
 <script>
   import TodoItem from "./TodoItem";
-  import { uuid } from "../utils/uuid";
-  import { mapActions, mapState } from "vuex";
+  import { mapActions, mapGetters, mapMutations } from "vuex";
 
   export default {
     name: 'TodoList',
@@ -32,9 +31,7 @@
       };
     },
     computed: {
-      ...mapState({
-        tasks: state => state.tasks,
-      }),
+      ...mapGetters(['todoTasks', 'doneTasks']),
       displayTasks: function () {
         if (this.shouldDisplayTodo()) {
           return this.todoTasks;
@@ -44,29 +41,26 @@
         }
         return [];
       },
-      todoTasks: function () {
-        return this.tasks.filter(task => task.status === 'TODO');
-      },
-      doneTasks: function () {
-        return this.tasks.filter(task => task.status === 'DONE');
-      }
     },
     created: function () {
       this.getTasks();
     },
     methods: {
       ...mapActions(['getTasks']),
+      ...mapMutations(['completeTask', 'addTask', 'removeTask']),
       complete: function (taskId) {
-        const task = this.tasks.find(task => task.id === taskId);
-        task.status = 'DONE';
+        this.completeTask(taskId);
       },
       add: function () {
-        this.tasks.push({ id: uuid(), title: this.newTitle, content: this.newContent, status: 'TODO' });
+        this.addTask({
+          title: this.newTitle,
+          content: this.newContent
+        });
         this.newTitle = '';
         this.newContent = '';
       },
       remove: function (taskId) {
-        this.tasks = this.tasks.filter(task => task.id !== taskId);
+        this.removeTask(taskId);
       },
       shouldDisplayTodo: function () {
         return this.$route.params.taskStatus === 'todo';
