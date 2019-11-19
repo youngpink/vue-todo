@@ -31,7 +31,7 @@
       };
     },
     computed: {
-      ...mapGetters(['todoTasks', 'doneTasks']),
+      ...mapGetters('task', ['todoTasks', 'doneTasks']),
       displayTasks: function () {
         if (this.shouldDisplayTodo()) {
           return this.todoTasks;
@@ -46,8 +46,8 @@
       this.getTasks();
     },
     methods: {
-      ...mapActions(['getTasks']),
-      ...mapMutations(['completeTask', 'addTask', 'removeTask']),
+      ...mapActions('task', ['getTasks']),
+      ...mapMutations('task', ['completeTask', 'addTask', 'removeTask']),
       complete: function (taskId) {
         this.completeTask(taskId);
       },

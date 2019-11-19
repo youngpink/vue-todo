@@ -41,9 +41,15 @@ const actions = {
   }
 };
 
-export default new Vuex.Store({
+const moduleTask = {
   state,
   getters,
   mutations,
   actions,
+};
+
+export default new Vuex.Store({
+  modules: {
+    task: moduleTask,
+  }
 });
