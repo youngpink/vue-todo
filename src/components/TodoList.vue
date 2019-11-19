@@ -20,19 +20,14 @@
 <script>
   import TodoItem from "./TodoItem";
   import { uuid } from "../utils/uuid";
+  import { getTasks } from "../api";
 
   export default {
     name: 'TodoList',
     components: { TodoItem },
     data: function () {
       return {
-        tasks: [
-          { id: '001', title: '起床', content: '早上7点起床', status: 'TODO' },
-          { id: '002', title: '吃早餐', content: '早上8点前吃完早餐', status: 'TODO' },
-          { id: '003', title: '读书', content: '读《重构》1-10页', status: 'TODO' },
-          { id: '004', title: '锻炼', content: '步行1万步', status: 'TODO' },
-          { id: '005', title: '打电话', content: '给狗娃纸打电话', status: 'TODO' },
-        ],
+        tasks: [],
         newTitle: '',
         newContent: '',
       };
@@ -54,6 +49,9 @@
         return this.tasks.filter(task => task.status === 'DONE');
       }
     },
+    created: function () {
+      this.getTasks();
+    },
     methods: {
       complete: function (taskId) {
         const task = this.tasks.find(task => task.id === taskId);
@@ -72,6 +70,9 @@
       },
       shouldDisplayDone: function () {
         return this.$route.params.taskStatus === 'done';
+      },
+      getTasks: async function () {
+         this.tasks = await getTasks();
       },
     },
   }
