@@ -1,7 +1,11 @@
 import Home from "./components/Home";
 import TodoList from "./components/TodoList";
+import VueRouter from "vue-router";
+import Vue from "vue";
 
-export default [{
+Vue.use(VueRouter);
+
+const routes = [{
   path: '',
   component: Home,
   redirect: '/todo',
@@ -10,3 +14,5 @@ export default [{
     component: TodoList,
   }],
 }];
+
+export default new VueRouter({ routes });
