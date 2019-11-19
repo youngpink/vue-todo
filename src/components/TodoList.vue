@@ -1,8 +1,8 @@
 <template>
   <div class="list">
     <div v-if="shouldDisplayTodo()">
-      <div>标题<input v-model="newTitle"/></div>
-      <div>内容<textarea v-model="newContent"/></div>
+      <LabelInput title="标题" v-model="newTitle" type="input"></LabelInput>
+      <LabelInput title="内容" v-model="newContent" type="textarea"></LabelInput>
       <button @click="add()">确定添加</button>
     </div>
     <div class="tasks">
@@ -20,10 +20,11 @@
 <script>
   import TodoItem from "./TodoItem";
   import { mapActions, mapGetters, mapMutations } from "vuex";
+  import LabelInput from "./LabelInput";
 
   export default {
     name: 'TodoList',
-    components: { TodoItem },
+    components: { TodoItem, LabelInput },
     data: function () {
       return {
         newTitle: '',
