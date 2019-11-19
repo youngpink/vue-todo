@@ -12,7 +12,7 @@
   export default {
     name: 'Home',
     computed: {
-      ...mapGetters(['todoTasks', 'doneTasks'])
+      ...mapGetters('task', ['todoTasks', 'doneTasks'])
     },
   }
 </script>
