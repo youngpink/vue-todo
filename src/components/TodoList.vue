@@ -20,19 +20,21 @@
 <script>
   import TodoItem from "./TodoItem";
   import { uuid } from "../utils/uuid";
-  import { getTasks } from "../api";
+  import { mapActions, mapState } from "vuex";
 
   export default {
     name: 'TodoList',
     components: { TodoItem },
     data: function () {
       return {
-        tasks: [],
         newTitle: '',
         newContent: '',
       };
     },
     computed: {
+      ...mapState({
+        tasks: state => state.tasks,
+      }),
       displayTasks: function () {
         if (this.shouldDisplayTodo()) {
           return this.todoTasks;
@@ -53,6 +55,7 @@
       this.getTasks();
     },
     methods: {
+      ...mapActions(['getTasks']),
       complete: function (taskId) {
         const task = this.tasks.find(task => task.id === taskId);
         task.status = 'DONE';
@@ -70,9 +73,6 @@
       },
       shouldDisplayDone: function () {
         return this.$route.params.taskStatus === 'done';
-      },
-      getTasks: async function () {
-         this.tasks = await getTasks();
       },
     },
   }
