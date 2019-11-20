@@ -32,6 +32,13 @@
       remove: function () {
         this.$emit('remove-task', this.task.id);
       },
+    },
+    watch: {
+      task: function (value, oldValue) {
+        if (value.status === 'DONE' && oldValue.status === 'TODO') {
+          alert(`完成任务[${this.task.title}]啦`)
+        }
+      }
     }
   }
 </script>

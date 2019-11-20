@@ -19,7 +19,7 @@
 
 <script>
   import TodoItem from "./TodoItem";
-  import { mapActions, mapGetters, mapMutations } from "vuex";
+  import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
   import LabelInput from "./LabelInput";
 
   export default {
@@ -32,13 +32,14 @@
       };
     },
     computed: {
+      ...mapState('task', ['tasks']),
       ...mapGetters('task', ['todoTasks', 'doneTasks']),
       displayTasks: function () {
         if (this.shouldDisplayTodo()) {
-          return this.todoTasks;
+          return this.tasks;
         }
         if (this.shouldDisplayDone()) {
-          return this.doneTasks;
+          return this.tasks;
         }
         return [];
       },

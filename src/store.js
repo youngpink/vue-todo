@@ -19,8 +19,10 @@ const mutations = {
     state.tasks = tasks;
   },
   completeTask(state, taskId) {
-    const task = state.tasks.find(task => task.id === taskId);
-    task.status = 'DONE';
+    state.tasks = state.tasks.map(task => task.id === taskId
+      ? { ...task, status: 'DONE' }
+      : task
+    );
   },
   addTask(state, { title, content }) {
     state.tasks.push({ id: uuid(), title, content, status: 'TODO' });
