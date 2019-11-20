@@ -1,6 +1,9 @@
 <template>
   <div class="todo-container">
-    <span>{{ task.title }}</span><span>{{ task.status }}</span>
+    <div class="title-area">
+      <span>{{ task.title }}</span>
+      <span>{{ task.status | statusText }}</span>
+    </div>
     <p>{{ task.content }}</p>
     <button v-if="task.status === 'TODO'" @click="complete()">完成</button>
     <button v-if="task.status === 'DONE'" @click="remove()">删除</button>
@@ -12,6 +15,15 @@
     name: 'TodoItem',
     props: {
       task: Object,
+    },
+    filters: {
+      statusText: function (value) {
+        const statusMap = {
+          'TODO': '待完成',
+          'DONE': '已完成',
+        };
+        return statusMap[value];
+      }
     },
     methods: {
       complete: function () {
@@ -31,6 +43,14 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     margin-bottom: 16px;
     padding: 16px;
+    text-align: left;
   }
 
+  .title-area {
+    display: flex;
+  }
+
+  .title-area > span:first-child {
+    flex: 1;
+  }
 </style>
