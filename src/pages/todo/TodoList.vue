@@ -20,7 +20,7 @@
 <script>
   import TodoItem from "./TodoItem";
   import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
-  import LabelInput from "./LabelInput";
+  import LabelInput from "../../components/LabelInput";
 
   export default {
     name: 'TodoList',

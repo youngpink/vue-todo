@@ -1,5 +1,5 @@
-import Home from "./components/Home";
-import TodoList from "./components/TodoList";
+import Home from "./pages/home";
+import TodoList from "./pages/todo/TodoList";
 import VueRouter from "vue-router";
 import Vue from "vue";
 
