@@ -1,7 +1,9 @@
 <template>
-  <div class="home">
-    <router-link to="todo">待完成 ({{ todoTasks.length }})</router-link>
-    <router-link to="done">已完成 ({{ doneTasks.length }})</router-link>
+  <div>
+    <el-menu mode="horizontal" :router="true" default-active="todo">
+      <el-menu-item index="todo">待完成 ({{ todoTasks.length }})</el-menu-item>
+      <el-menu-item index="done">已完成 ({{ doneTasks.length }})</el-menu-item>
+    </el-menu>
     <router-view></router-view>
   </div>
 </template>
