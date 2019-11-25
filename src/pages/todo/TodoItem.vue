@@ -43,7 +43,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .todo-container {
     width: 200px;
     height: 100px;
@@ -55,9 +55,9 @@
 
   .title-area {
     display: flex;
-  }
-
-  .title-area > span:first-child {
-    flex: 1;
+  
+    span:first-child {
+      flex: 1;
+    }
   }
 </style>

@@ -20,16 +20,4 @@
 </script>
 
 <style scoped>
-  .home {
-    text-align: center;
-  }
-  
-  a {
-    display: inline-block;
-    margin-bottom: 16px;
-  }
-  
-  a + a {
-    margin-left: 16px;
-  }
 </style>

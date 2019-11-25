@@ -73,13 +73,13 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .list {
     display: flex;
     justify-content: center;
-  }
-  
-  .tasks {
-    width: 250px;
+    
+    .tasks {
+      width: 250px;
+    }
   }
 </style>
