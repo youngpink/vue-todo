@@ -10,7 +10,7 @@
       </el-form>
       <div slot="footer">
         <el-button @click="close">取消</el-button>
-        <el-button @click="add()">确定</el-button>
+        <el-button @click="add()" :disabled="!isFormValid">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -31,16 +31,26 @@
         rules: {
           title: [{ required: true, message: '请输入标题', trigger: 'blur' }]
         },
+        isFormValid: false,
       };
+    },
+    watch: {
+      form: {
+        deep: true,
+        handler: function () {
+          if (this.$refs.newTaskForm) {
+            this.$refs.newTaskForm.validate((valid) => this.isFormValid = valid);
+            return;
+          }
+          this.isFormValid = false;
+        }
+      }
     },
     methods: {
       add: function () {
-        this.$refs.newTaskForm.validate((valid) => {
-          if (valid) {
-            this.$emit('addTask', this.form);
-            return;
-          }
-        });
+        if (this.isFormValid) {
+          this.$emit('addTask', this.form);
+        }
       },
       reset: function () {
         this.$refs.newTaskForm.resetFields();
