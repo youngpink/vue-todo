@@ -1,36 +1,29 @@
 <template>
   <div class="list">
-    <div v-if="shouldDisplayTodo()">
-      <LabelInput title="标题" v-model="newTitle" type="input"></LabelInput>
-      <LabelInput title="内容" v-model="newContent" type="textarea"></LabelInput>
-      <button @click="add()">确定添加</button>
-    </div>
-    <div class="tasks">
-      <TodoItem
-              :key="task.id"
-              :task="task"
-              v-for="task in displayTasks"
-              @complete-task="complete($event)"
-              @remove-task="remove($event)"
-      ></TodoItem>
-    </div>
+    <CreateTask
+            class="create-task"
+            ref="createTask"
+            v-if="shouldDisplayTodo()"
+            @addTask="add($event)"
+    ></CreateTask>
+    <TodoItem
+            :key="task.id"
+            :task="task"
+            v-for="task in displayTasks"
+            @complete-task="complete($event)"
+            @remove-task="remove($event)"
+    ></TodoItem>
   </div>
 </template>
 
 <script>
   import TodoItem from "./TodoItem";
   import { mapActions, mapGetters, mapMutations } from "vuex";
-  import LabelInput from "../../components/LabelInput";
+  import CreateTask from "./CreateTask";
 
   export default {
     name: 'TodoList',
-    components: { TodoItem, LabelInput },
-    data: function () {
-      return {
-        newTitle: '',
-        newContent: '',
-      };
-    },
+    components: { TodoItem, CreateTask },
     computed: {
       ...mapGetters('task', ['todoTasks', 'doneTasks']),
       displayTasks: function () {
@@ -52,13 +45,12 @@
       complete: function (taskId) {
         this.completeTask(taskId);
       },
-      add: function () {
+      add: function (taskData) {
         this.addTask({
-          title: this.newTitle,
-          content: this.newContent
+          title: taskData.newTitle,
+          content: taskData.newContent
         });
-        this.newTitle = '';
-        this.newContent = '';
+        this.$refs.createTask.reset();
       },
       remove: function (taskId) {
         this.removeTask(taskId);
@@ -76,10 +68,12 @@
 <style scoped lang="scss">
   .list {
     display: flex;
-    justify-content: center;
-    
-    .tasks {
-      width: 250px;
-    }
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .create-task {
+    position: absolute;
+    right: 100px;
   }
 </style>
