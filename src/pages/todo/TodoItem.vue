@@ -1,13 +1,14 @@
 <template>
-  <div class="todo-container">
-    <div class="title-area">
+  <el-card class="task-container">
+    <div slot="header" class="title-area">
       <span>{{ task.title }}</span>
-      <span>{{ task.status | statusText }}</span>
+      <el-button v-if="task.status === 'TODO'" @click="complete()" size="mini">完成</el-button>
+      <el-button v-if="task.status === 'DONE'" @click="remove()">删除</el-button>
     </div>
-    <p>{{ task.content }}</p>
-    <button v-if="task.status === 'TODO'" @click="complete()">完成</button>
-    <button v-if="task.status === 'DONE'" @click="remove()">删除</button>
-  </div>
+    <div class="card-body">
+      {{ task.content }}
+    </div>
+  </el-card>
 </template>
 
 <script>
@@ -44,20 +45,23 @@
 </script>
 
 <style scoped lang="scss">
-  .todo-container {
-    width: 200px;
-    height: 100px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  .task-container {
+    width: 300px;
     margin-bottom: 16px;
-    padding: 16px;
-    text-align: left;
   }
 
   .title-area {
     display: flex;
+    align-content: center;
   
-    span:first-child {
+    span {
       flex: 1;
+      display: flex;
+      align-items: center;
     }
+  }
+  
+  .card-body {
+    min-height: 100px;
   }
 </style>
