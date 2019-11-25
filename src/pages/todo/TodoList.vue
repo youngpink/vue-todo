@@ -46,10 +46,7 @@
         this.completeTask(taskId);
       },
       add: function (taskData) {
-        this.addTask({
-          title: taskData.newTitle,
-          content: taskData.newContent
-        });
+        this.addTask(taskData);
         this.$refs.createTask.reset();
       },
       remove: function (taskId) {
